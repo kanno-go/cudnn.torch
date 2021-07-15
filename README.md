@@ -1,15 +1,15 @@
 cudnn.torch
 ===========
 
-Torch7 FFI bindings for NVIDIA cuDNN (R5) kernels!
+Torch7 FFI bindings for NVIDIA cuDNN (R8) kernels!
 
 Modules are API compatible their [`nn`](https://github.com/torch/nn) equivalents. Fully unit-tested against `nn` implementations.
 Conversion between `nn` and `cudnn` is available through `cudnn.convert` function.
 
 #### Installation
 
-* Install cuDNN (version R5 EA)
-* Have at least CUDA 7.0
+* Install cuDNN (version R8 EA)
+* Have at least CUDA 11.x or 10.2
 * Have `libcudnn.so` in your library path ($LD_LIBRARY_PATH) (Install cuDNN it from https://developer.nvidia.com/cuDNN )
 * Instead of the previous step, you can copy the library files into /usr/local/cuda/lib64/ or to the corresponding folders in CUDA directory
 

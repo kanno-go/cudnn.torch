@@ -19,9 +19,9 @@ local warmupIterations = 0
 local Meg = 1024*1024
 
 -- cudnnGetxxx APIs: default, when cudnn.benchmark == false
-local getAlgos = {'cudnnGetConvolutionForwardAlgorithm',
-                  'cudnnGetConvolutionBackwardFilterAlgorithm',
-                  'cudnnGetConvolutionBackwardDataAlgorithm'}
+local getAlgos = {'cudnnGetConvolutionForwardAlgorithm_v7',
+                  'cudnnGetConvolutionBackwardFilterAlgorithm_v7',
+                  'cudnnGetConvolutionBackwardDataAlgorithm_v7'}
 local getWSAlgos = {'cudnnGetConvolutionForwardWorkspaceSize',
                     'cudnnGetConvolutionBackwardFilterWorkspaceSize',
                     'cudnnGetConvolutionBackwardDataWorkspaceSize'}
@@ -362,12 +362,12 @@ function find:setupAlgo(layer, findAPI_idx, algSearchMode, params)
                     ret = cudnn.call(API,
                                      cudnn.getHandle(),
                                      params[1], params[3], layer.convDesc[0], params[6],
-                                     algSearchMode, algWorkspaceLimit, algType[findAPI_idx])
+                                     nAlgos, numPerfResults, perfResults)
                     if ret ~= 0 then
                        return ret
                     end
 
-                    local retAlgo = algType[findAPI_idx][0]
+                    local retAlgo = perfResults[0].algo
                     if find.verbose then
                        print(string.format(
                                 "\n" .. API .. ": %d (ws limit: %d) mode = %s",
